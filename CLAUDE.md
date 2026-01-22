@@ -2,206 +2,336 @@
 
 ずんだもん＆めたんの掛け合い紹介動画を作成するためのテンプレートです。
 
-## 必要なもの
+---
 
-1. **Node.js 18以上** - https://nodejs.org/
-2. **VOICEVOX** - https://voicevox.hiroshiba.jp/ (無料の音声合成ソフト)
-3. **Claude Code** - このテンプレートと一緒に使うと便利
+## Claude Code Skillの導入（推奨）
 
-## クイックスタート
+Claude Codeをより効率的に使うために、専用のSkillを導入できます。
 
-### 1. テンプレートをコピー
+### 導入方法
 
 ```bash
-cp -r remotion-voicevox-template my-video
-cd my-video
-npm install
+# 1. skillsディレクトリを作成
+mkdir -p ~/.claude/skills/remotion-video
+
+# 2. SKILL.mdをダウンロード
+curl -o ~/.claude/skills/remotion-video/SKILL.md \
+  https://raw.githubusercontent.com/nyanko3141592/remotion-voicevox-template/master/SKILL.md
 ```
 
-### 2. キャラクター画像を配置
+### Skillを入れると何が変わる？
 
-`public/images/` に画像を配置：
+- Claude Codeがこのテンプレートの使い方を理解している状態で会話を始められる
+- 「紹介動画を作りたい」と言うだけで、適切なワークフローを案内してくれる
+- 英語→カタカナ変換、音声生成、動画出力の手順を熟知した状態になる
 
-```
-public/images/
-├── zundamon/
-│   ├── mouth_open.png   # 口開き
-│   └── mouth_close.png  # 口閉じ
-└── metan/
-    ├── mouth_open.png
-    └── mouth_close.png
-```
+### 手動でSkillを追加する場合
 
-画像がない場合はプレースホルダー（絵文字）が表示されます。
-
-### 3. VOICEVOXを起動
-
-VOICEVOXアプリを起動しておいてください（バックグラウンドで動いていればOK）。
+`~/.claude/skills/remotion-video/SKILL.md` に以下のURLの内容をコピー：
+https://github.com/nyanko3141592/remotion-voicevox-template/blob/master/SKILL.md
 
 ---
 
-## Claude Codeでの使い方
+## このテンプレートでできること
 
-このテンプレートはClaude Codeと一緒に使うと、セリフの作成から動画出力まで簡単にできます。
+- ずんだもん（右下）とめたん（左下）の掛け合い動画
+- VOICEVOXによる自動音声生成
+- 口パクアニメーション
+- 袋文字スタイルの字幕（キャラクターごとに色分け）
+- シーン別のビジュアル
 
-### 基本的な流れ
+**出力例**: 1920x1080 Full HD、30fps、1.2倍速再生
+
+---
+
+## 必要なもの
+
+| 必須 | 説明 |
+|------|------|
+| Node.js 18+ | https://nodejs.org/ |
+| VOICEVOX | https://voicevox.hiroshiba.jp/ （無料の音声合成ソフト） |
+
+| 任意 | 説明 |
+|------|------|
+| Claude Code | 対話的に動画を作成できる |
+| キャラクター画像 | なくてもプレースホルダーが表示される |
+
+---
+
+## クイックスタート
+
+```bash
+# 1. テンプレートをコピー
+git clone https://github.com/nyanko3141592/remotion-voicevox-template.git my-video
+cd my-video
+npm install
+
+# 2. VOICEVOXを起動
+
+# 3. Claude Codeで開く
+claude
+```
+
+---
+
+## Claude Codeでの使い方（推奨）
+
+このテンプレートはClaude Codeと一緒に使うことで、プログラミング知識がなくても動画を作成できます。
+
+### 基本の流れ
 
 ```
-1. Claude Codeでプロジェクトを開く
-2. 作りたい動画の内容を伝える
-3. セリフを生成してもらう
-4. 音声を生成
-5. プレビューで確認
-6. 動画を出力
+┌─────────────────────────────────────────────┐
+│ 1. 作りたい動画の内容を伝える                  │
+│    ↓                                        │
+│ 2. Claudeがセリフを作成                       │
+│    ↓                                        │
+│ 3. 「音声生成して」と指示                      │
+│    ↓                                        │
+│ 4. 「プレビュー見せて」で確認                  │
+│    ↓                                        │
+│ 5. 修正があれば指示                           │
+│    ↓                                        │
+│ 6. 「動画出力して」で完成                      │
+└─────────────────────────────────────────────┘
 ```
 
-### Claude Codeへの指示例
+### 指示の具体例
 
-#### 新しい動画を作りたい時
-
-```
-「〇〇の紹介動画を作りたい。ずんだもんとめたんの掛け合いで」
-```
+#### 新しい動画を作る
 
 ```
-「Pythonの基礎を説明する動画のスクリプトを書いて」
+「〇〇の紹介動画を作りたい」
 ```
 
 ```
-「このアプリの使い方を紹介する動画を作って。特徴は〜〜で、対象者は初心者」
+「Pythonの基礎を説明する動画を作って。初心者向けに」
 ```
 
-#### セリフを修正したい時
+```
+「このアプリの使い方動画を作りたい。
+特徴：
+- 〇〇ができる
+- △△に対応
+対象：初心者」
+```
 
 ```
-「シーン2のセリフをもっとわかりやすくして」
+「以下の内容で紹介動画を作って：
+1. オープニング（挨拶）
+2. 〇〇の説明
+3. 使い方のデモ
+4. エンディング」
 ```
+
+#### セリフを修正する
 
 ```
 「ID 5のセリフを『〇〇〇』に変更して」
 ```
 
 ```
+「シーン2のセリフをもっと短くして」
+```
+
+```
 「めたんのセリフをもっと増やして」
 ```
 
-#### 音声と動画の生成
+```
+「ずんだもんの口調をもっと元気にして」
+```
+
+```
+「専門用語を減らしてもっとわかりやすくして」
+```
+
+#### 発音を修正する
+
+```
+「Homebrewがおかしいのでカタカナのホームブルーにして」
+```
+
+```
+「英語の発音がおかしいところを全部カタカナにして」
+```
+
+```
+「GitHubをギットハブって発音させて」
+```
+
+#### 音声・動画の生成
 
 ```
 「音声を生成して」
-→ VOICEVOXで全セリフの音声ファイルが生成されます
 ```
 
 ```
-「プレビューを見たい」
-→ npm start が実行され、ブラウザで確認できます
+「プレビューを見せて」
 ```
 
 ```
 「動画を出力して」
-→ npm run build が実行され、out/video.mp4 に出力されます
 ```
 
-#### 問題があった時
+```
+「音声生成してからプレビュー見せて」
+```
+
+#### 問題を報告する
 
 ```
 「音声と字幕がずれてる」
-→ durationInFrames を修正してくれます
 ```
 
 ```
-「〇〇の発音がおかしい」
-→ カタカナ表記に変更し、displayTextで正しい表記を設定してくれます
+「ID 3の発音がおかしい」
 ```
 
-### 実際のワークフロー例
-
-**例：「Homebrewの使い方」動画を作る場合**
+```
+「シーン2の音声が抜けてる」
+```
 
 ```
-あなた: 「Homebrewの使い方を紹介する動画を作りたい。
-        macOSでのパッケージ管理について、初心者向けに説明して」
+「キャラクターが表示されない」
+```
 
-Claude: スクリプトを作成します...
+### 実際の会話例
+
+#### 例1: シンプルな紹介動画
+
+```
+あなた: Homebrewの使い方を紹介する動画を作りたい
+
+Claude: Homebrewの紹介動画のスクリプトを作成します。
         [script.ts を編集]
+
+        以下のような構成で作成しました：
+        - シーン1: オープニング（Homebrewとは）
+        - シーン2: インストール方法
+        - シーン3: 基本的な使い方
+        - シーン4: エンディング
 
         音声を生成しますか？
 
-あなた: 「はい」
+あなた: はい
 
-Claude: [VOICEVOXで音声生成]
+Claude: [VOICEVOXで音声生成中...]
         音声生成が完了しました。プレビューで確認しますか？
 
-あなた: 「確認する」
+あなた: 確認する
 
 Claude: [npm start を実行]
-        http://localhost:3000 で確認できます。
+        http://localhost:3000 でプレビューできます。
 
-あなた: 「ID 3のセリフ、Homebrewの発音がおかしい」
+あなた: ID 3のHomebrew、発音がおかしい
 
 Claude: VOICEVOXは英語をうまく発音できないので、
-        カタカナに変更します。
-        [text を「ホームブルー」に、displayText を「Homebrew」に設定]
+        カタカナ「ホームブルー」に変更し、
+        字幕は「Homebrew」のままにします。
+        [script.ts を修正]
         音声を再生成しますか？
 
-あなた: 「はい、あと動画出力もして」
+あなた: はい、あと動画も出力して
 
 Claude: [音声再生成]
         [npm run build を実行]
-        out/video.mp4 に出力しました。
+        out/video.mp4 に出力しました！
+```
+
+#### 例2: 修正を重ねる
+
+```
+あなた: シーン2の説明がわかりにくい
+
+Claude: シーン2のセリフを確認します。
+        現在の内容：「〇〇〇...」
+
+        どのように修正しましょうか？
+        1. もっとシンプルにする
+        2. 具体例を追加する
+        3. 別の説明方法にする
+
+あなた: 1で
+
+Claude: シンプルな表現に修正しました。
+        [script.ts を修正]
+
+        変更前：「〇〇〇...」
+        変更後：「△△△...」
+
+        音声を再生成しますか？
+```
+
+#### 例3: 構成を変更する
+
+```
+あなた: シーン3と4の順番を入れ替えたい
+
+Claude: シーン3と4を入れ替えます。
+        [script.ts を修正]
+
+        変更後の構成：
+        - シーン1: オープニング
+        - シーン2: 〇〇の説明
+        - シーン3: （元シーン4）△△について
+        - シーン4: （元シーン3）□□のデモ
+        - シーン5: エンディング
+
+        音声を再生成しますか？
 ```
 
 ---
 
-## ファイル構成
+## 手動で使う場合
 
-```
-├── src/
-│   ├── data/
-│   │   └── script.ts        # ★ セリフデータ（主にここを編集）
-│   ├── components/
-│   │   ├── Character.tsx    # キャラクター表示
-│   │   ├── Subtitle.tsx     # 字幕
-│   │   └── SceneVisuals.tsx # シーン別ビジュアル
-│   ├── config.ts            # 動画設定
-│   ├── Main.tsx             # メインコンポーネント
-│   └── Root.tsx             # Remotionルート
-├── public/
-│   ├── images/              # キャラクター画像
-│   │   ├── zundamon/
-│   │   └── metan/
-│   └── voices/              # 音声ファイル（自動生成）
-├── scripts/
-│   └── generate-voices.ts   # 音声生成スクリプト
-└── out/
-    └── video.mp4            # 出力動画
-```
+### 1. セリフを編集
 
----
-
-## セリフデータの書き方
-
-`src/data/script.ts` を編集します：
+`src/data/script.ts` を編集：
 
 ```typescript
 export const scriptData: ScriptLine[] = [
   {
-    id: 1,                              // ユニークなID
-    character: "zundamon",              // "zundamon" or "metan"
+    id: 1,                              // ユニークなID（連番）
+    character: "zundamon",              // "zundamon" または "metan"
     text: "こんにちは！",                // セリフ（音声生成用）
+    // displayText: "...",              // 字幕用（英語表記など、省略可）
     scene: 1,                           // シーン番号
     voiceFile: "01_zundamon.wav",       // 音声ファイル名
     durationInFrames: 100,              // 長さ（音声生成後に自動更新）
-    pauseAfter: 10,                     // セリフ後の間
-    emotion: "happy",                   // 感情（オプション）
+    pauseAfter: 10,                     // セリフ後の間（フレーム数）
+    emotion: "happy",                   // 感情（省略可）
   },
-  // ...
+  // 続きのセリフ...
 ];
 ```
 
-### 英語を含むセリフ
+### 2. 音声生成
 
-VOICEVOXは英語をうまく発音できません。`displayText` を使って対応します：
+```bash
+# VOICEVOXが起動していることを確認してから
+npm run voices
+```
+
+### 3. プレビュー
+
+```bash
+npm start
+# http://localhost:3000 で確認
+```
+
+### 4. 動画出力
+
+```bash
+npm run build
+# out/video.mp4 に出力
+```
+
+---
+
+## 英語の発音問題
+
+VOICEVOXは英語を正しく発音できません。`displayText` フィールドを使って対応します。
 
 ```typescript
 {
@@ -213,43 +343,77 @@ VOICEVOXは英語をうまく発音できません。`displayText` を使って�
 }
 ```
 
-よく使う変換例：
-- `macOS` → `マックオーエス`
-- `iPhone` → `アイフォン`
-- `GitHub` → `ギットハブ`
-- `API` → `エーピーアイ`
-- `AI` → `エーアイ`
+### よく使う変換表
+
+| 英語 | カタカナ |
+|------|---------|
+| macOS | マックオーエス |
+| iPhone | アイフォン |
+| GitHub | ギットハブ |
+| API | エーピーアイ |
+| AI | エーアイ |
+| Homebrew | ホームブルー |
+| brew install | ブリューインストール |
+| Ctrl+S | コントロールプラスエス |
+| IME | アイエムイー |
 
 ---
 
 ## キャラクター設定
 
-| ID | 名前 | VOICEVOX Speaker ID | 画面位置 |
-|----|------|---------------------|----------|
-| metan | 四国めたん | 2 | 左下 |
-| zundamon | ずんだもん | 3 | 右下 |
+| ID | 名前 | VOICEVOX ID | 画面位置 | 字幕色 |
+|----|------|-------------|----------|--------|
+| metan | 四国めたん | 2 | 左下 | ピンク |
+| zundamon | ずんだもん | 3 | 右下 | 緑 |
 
-### 画像の配置
+### キャラクター画像の配置
 
 口パクアニメーション用に2種類の画像が必要：
 
 ```
-public/images/zundamon/
-├── mouth_open.png   # 口開き
-└── mouth_close.png  # 口閉じ
-
-public/images/metan/
-├── mouth_open.png   # 口開き
-└── mouth_close.png  # 口閉じ
+public/images/
+├── zundamon/
+│   ├── mouth_open.png   # 口開き
+│   └── mouth_close.png  # 口閉じ
+└── metan/
+    ├── mouth_open.png   # 口開き
+    └── mouth_close.png  # 口閉じ
 ```
 
-画像ファイル名は `src/config.ts` で変更可能です。
+**画像がない場合**: プレースホルダー（絵文字）が表示されます。
+
+**画像の向き**: めたんは自動で右向きに反転されます（元画像が左向きの場合）。
+`src/config.ts` の `flipX` で変更可能。
+
+---
+
+## ファイル構成
+
+```
+├── src/
+│   ├── data/
+│   │   └── script.ts        # ★ セリフデータ（主にここを編集）
+│   ├── components/
+│   │   ├── Character.tsx    # キャラクター表示・口パク
+│   │   ├── Subtitle.tsx     # 字幕（袋文字）
+│   │   └── SceneVisuals.tsx # シーン別ビジュアル
+│   ├── config.ts            # 動画・キャラクター設定
+│   ├── Main.tsx             # メインコンポーネント
+│   └── Root.tsx             # Remotionルート
+├── public/
+│   ├── images/              # キャラクター画像
+│   └── voices/              # 音声ファイル（自動生成）
+├── scripts/
+│   └── generate-voices.ts   # 音声生成スクリプト
+└── out/
+    └── video.mp4            # 出力動画
+```
 
 ---
 
 ## シーン管理
 
-シーンは `src/data/script.ts` で定義：
+`src/data/script.ts` でシーンを定義：
 
 ```typescript
 export const scenes: SceneInfo[] = [
@@ -259,22 +423,17 @@ export const scenes: SceneInfo[] = [
 ];
 ```
 
-シーンごとのビジュアルは `src/components/SceneVisuals.tsx` でカスタマイズできます。
+シーンごとのビジュアルは `src/components/SceneVisuals.tsx` でカスタマイズ。
 
 ---
 
 ## コマンド一覧
 
-```bash
-# プレビュー（開発サーバー起動）
-npm start
-
-# 音声生成（VOICEVOXが起動している必要あり）
-npm run voices
-
-# 動画出力
-npm run build
-```
+| コマンド | 説明 |
+|---------|------|
+| `npm start` | プレビューサーバー起動（http://localhost:3000） |
+| `npm run voices` | 音声生成（VOICEVOX起動必須） |
+| `npm run build` | 動画出力（out/video.mp4） |
 
 ---
 
@@ -289,18 +448,64 @@ npm run build
 
 ## トラブルシューティング
 
-### 「VOICEVOXに接続できない」
-→ VOICEVOXアプリが起動しているか確認してください
+### VOICEVOXに接続できない
 
-### 「音声と字幕がずれる」
-→ `npm run voices` を実行すると `durationInFrames` が自動修正されます
+```
+Error: ECONNREFUSED
+```
 
-### 「英語の発音がおかしい」
-→ `text` をカタカナに、`displayText` に英語表記を設定してください
+→ VOICEVOXアプリが起動しているか確認してください。
 
-### 「キャラクター画像が表示されない」
-→ `public/images/{character}/` に画像があるか確認してください
-→ 画像がない場合はプレースホルダーが表示されます
+### 音声と字幕がずれる
 
-### 「動画出力が遅い」
-→ Remotionの仕様です。長い動画ほど時間がかかります
+→ `npm run voices` を実行すると `durationInFrames` が自動修正されます。
+
+### 英語の発音がおかしい
+
+→ `text` をカタカナに、`displayText` に英語表記を設定してください。
+
+### キャラクター画像が表示されない
+
+→ `public/images/{character}/` に画像があるか確認してください。
+→ 画像がない場合はプレースホルダーが表示されます。
+
+### 動画出力が遅い
+
+→ Remotionの仕様です。長い動画ほど時間がかかります。
+→ プレビューで確認してから出力することをお勧めします。
+
+### 音声ファイルが見つからない
+
+```
+Error: Could not find file: voices/XX_zundamon.wav
+```
+
+→ `npm run voices` で音声を生成してください。
+
+---
+
+## Tips
+
+### 最後の「バイバイ」を二人で合わせる
+
+エンディングで二人が声を合わせて「バイバイ」と言う場合：
+
+```typescript
+// めたんの後すぐにずんだもんのセリフを入れる
+{
+  id: 44,
+  character: "metan",
+  text: "バイバイ〜！",
+  voiceFile: "44_metan.wav",
+  durationInFrames: 50,
+  pauseAfter: 0,  // 間を0にして同時感を出す
+},
+{
+  id: 45,
+  character: "zundamon",
+  text: "バイバイなのだ〜！",
+  voiceFile: "45_zundamon.wav",
+  durationInFrames: 60,
+  pauseAfter: 60,
+},
+```
