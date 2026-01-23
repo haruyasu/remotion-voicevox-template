@@ -165,15 +165,29 @@ public/images/
 
 ### 表情の使い方
 
-スクリプトの`emotion`フィールドで指定：
+**基本ルール:**
+- 基本は`normal`（口パク）で話す
+- 表情差分は**多用しない**、ここぞというところで使用
+- リアクションは最低0.5秒（15フレーム）継続させる
+
+**使いどころ:**
+| 表情 | 使うタイミング |
+|------|----------------|
+| `normal` | 通常の説明、会話（デフォルト） |
+| `happy` | 嬉しいとき、褒めるとき、ポイント強調 |
+| `surprised` | 驚いたとき、意外な事実 |
+| `thinking` | 考え込むとき、説明を聞くとき |
+| `sad` | 残念なとき、問題点を指摘 |
 
 ```typescript
-{
-  emotion: "happy",  // → happy_open.png / happy_close.png を使用
-}
-```
+// NG: 表情を多用しすぎ
+{ text: "すごいのだ！", emotion: "happy" },
+{ text: "便利なのだ！", emotion: "happy" },
 
-対応表情: `normal`, `happy`, `surprised`, `thinking`, `sad`
+// OK: ここぞというところで使う
+{ text: "すごいのだ！" },  // normal（省略可）
+{ text: "これが一番のポイントなのだ！", emotion: "happy" },  // ← ここぞ
+```
 
 ### 画像パスの変更
 

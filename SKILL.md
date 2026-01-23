@@ -285,16 +285,29 @@ npm install
 └── sad_close.png
 ```
 
-### 表情差分の使用
-スクリプトの`emotion`フィールドで表情を指定：
+### 表情差分の使い方
+
+**基本ルール:**
+- 基本は`normal`（口パク）で話す
+- 表情差分は**多用しない**、ここぞというところで使用
+- リアクションは最低0.5秒（15フレーム）継続させる
+
+**使いどころ:**
+- 驚いたとき → `surprised`
+- 嬉しいとき、褒めるとき → `happy`
+- 考え込むとき、説明を聞くとき → `thinking`
+- 残念なとき → `sad`
+
 ```typescript
-{
-  id: 5,
-  character: "zundamon",
-  text: "すごいのだ！",
-  emotion: "happy",  // happy_open.png / happy_close.png を使用
-  ...
-}
+// NG: 表情を多用しすぎ
+{ text: "すごいのだ！", emotion: "happy" },
+{ text: "便利なのだ！", emotion: "happy" },
+{ text: "簡単なのだ！", emotion: "happy" },
+
+// OK: ここぞというところで使う
+{ text: "すごいのだ！", emotion: "normal" },
+{ text: "便利なのだ！", emotion: "normal" },
+{ text: "これが一番のポイントなのだ！", emotion: "happy" },  // ← ここぞで使用
 ```
 
 ### 画像パスの設定
