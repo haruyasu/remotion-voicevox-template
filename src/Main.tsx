@@ -5,6 +5,7 @@ import { COLORS, VIDEO_CONFIG } from "./config";
 import { Subtitle } from "./components/Subtitle";
 import { Character } from "./components/Character";
 import { SceneVisuals } from "./components/SceneVisuals";
+import { Background } from "./components/Background";
 
 // Google Fontsをロード
 const { fontFamily } = loadFont();
@@ -65,30 +66,8 @@ export const Main: React.FC = () => {
         fontFamily: "'Noto Sans JP', 'Hiragino Sans', sans-serif",
       }}
     >
-      {/* 黒板背景 */}
-      <div
-        style={{
-          position: "absolute",
-          top: 40,
-          left: 60,
-          right: 60,
-          bottom: 160,
-          background: COLORS.blackboard,
-          borderRadius: 8,
-        }}
-      />
-      {/* 黒板の茶色フチ（下部） */}
-      <div
-        style={{
-          position: "absolute",
-          left: 60,
-          right: 60,
-          bottom: 160,
-          height: 24,
-          background: COLORS.blackboardBorder,
-          borderRadius: "0 0 8px 8px",
-        }}
-      />
+      {/* 背景（テーマ対応） */}
+      <Background />
       {/* BGM再生 */}
       {bgmConfig && (
         <Audio

@@ -3,12 +3,13 @@
 // npm run sync-settings で再生成されます
 
 export const SETTINGS = {
+  "theme": "blackboard",
   "font": {
     "family": "M PLUS Rounded 1c",
     "size": 70,
     "weight": "900",
-    "color": "#ffffff",
-    "outlineColor": "character",
+    "color": "#333333",
+    "outlineColor": "#ffffff",
     "innerOutlineColor": "none"
   },
   "subtitle": {
@@ -35,7 +36,7 @@ export const SETTINGS = {
     "playbackRate": 1.2
   },
   "colors": {
-    "background": "#ffffff",
+    "background": "#f0f4f8",
     "text": "#ffffff",
     "zundamon": "#228B22",
     "metan": "#FF1493"

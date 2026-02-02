@@ -7,7 +7,7 @@
  *   npx ts-node scripts/generate-voices.ts
  *
  * 前提条件:
- *   - VOICEVOXがlocalhost:50021で起動していること
+ *   - VOICEVOXがlocalhost:50022で起動していること
  */
 
 import * as fs from "fs";

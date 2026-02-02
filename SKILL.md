@@ -123,13 +123,13 @@ VOICEVOXは英語を正しく発音できません。`text`にカタカナ、`di
 
 ```bash
 # 起動確認
-curl -s http://localhost:50021/version
+curl -s http://localhost:50022/version
 
 # 音声生成
 TEXT="セリフ"
 SPEAKER=3  # ずんだもん=3, めたん=2
-curl -s "http://localhost:50021/audio_query?speaker=${SPEAKER}&text=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$TEXT'))")" -X POST | \
-  curl -s "http://localhost:50021/synthesis?speaker=${SPEAKER}" -X POST -H "Content-Type: application/json" -d @- -o output.wav
+curl -s "http://localhost:50022/audio_query?speaker=${SPEAKER}&text=$(python3 -c "import urllib.parse; print(urllib.parse.quote('$TEXT'))")" -X POST | \
+  curl -s "http://localhost:50022/synthesis?speaker=${SPEAKER}" -X POST -H "Content-Type: application/json" -d @- -o output.wav
 ```
 
 ### durationInFrames計算

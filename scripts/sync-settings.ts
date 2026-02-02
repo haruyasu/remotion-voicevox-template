@@ -14,6 +14,7 @@ const OUTPUT_PATH = path.join(ROOT_DIR, "src", "settings.generated.ts");
 const IMAGES_DIR = path.join(ROOT_DIR, "public", "images");
 
 interface VideoSettings {
+  theme: "blackboard" | "slide";
   font: {
     family: string;
     size: number;
