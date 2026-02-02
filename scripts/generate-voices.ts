@@ -104,7 +104,7 @@ function getWavDuration(filePath: string): number {
 
 // メイン処理
 async function main() {
-  const host = "http://localhost:50021";
+  const host = "http://localhost:50022";
   const fps = 30;
   const playbackRate = 1.2;
 

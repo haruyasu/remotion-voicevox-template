@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "jsx": "react",
+    "lib": ["ES2020", "DOM"],
+    "resolveJsonModule": true,
+    "outDir": "./dist",
+    "rootDir": "."
+  },
+  "include": ["src/**/*", "scripts/**/*"],
+  "exclude": ["node_modules", "dist", "out", "editor"]
+}

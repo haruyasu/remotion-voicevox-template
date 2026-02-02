@@ -87,7 +87,7 @@ export interface SceneConfig {
 
 // VOICEVOX設定
 export const VOICEVOX_CONFIG = {
-  host: "http://localhost:50021",
+  host: "http://localhost:50022",
   defaultSpeedScale: 1.0,
   defaultPitchScale: 0.0,
   defaultIntonationScale: 1.0,
